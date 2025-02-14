@@ -4,16 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Generator Haseł</title>
-    
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-6M3T75EDZ5"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'G-6M3T75EDZ5');
-    </script>
-
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -37,10 +27,13 @@
             display: flex;
             justify-content: space-between;
             width: 100%;
+            align-items: center;
         }
-        .input-group label, .input-group input {
+        .input-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             width: 48%;
-            text-align: center;
         }
         input, button {
             margin: 10px 0;
@@ -51,6 +44,7 @@
         input[type="number"] {
             width: 60px;
             text-align: center;
+            margin-top: 5px;
         }
         .password-list {
             margin-top: 20px;
@@ -79,10 +73,14 @@
     <div class="container">
         <h2>Generator Haseł</h2>
         <div class="input-group">
-            <label for="length">Długość hasła:</label>
-            <input type="number" id="length" min="8" max="50" value="12">
-            <label for="count">Liczba haseł:</label>
-            <input type="number" id="count" min="1" max="50" value="10">
+            <div class="input-item">
+                <label for="length">Długość hasła:</label>
+                <input type="number" id="length" min="8" max="50" value="12">
+            </div>
+            <div class="input-item">
+                <label for="count">Liczba haseł:</label>
+                <input type="number" id="count" min="1" max="50" value="10">
+            </div>
         </div>
         <button onclick="generatePasswords()">Generuj</button>
         <div id="passwords" class="password-list"></div>
