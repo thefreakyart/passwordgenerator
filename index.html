@@ -1,14 +1,6 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-6M3T75EDZ5"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-6M3T75EDZ5');
-</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Generator Haseł</title>
@@ -60,8 +52,55 @@
             width: 100%;
         }
         .password-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             padding: 5px;
             border-bottom: 1px solid #ccc;
+            white-space: nowrap;
+        }
+        .password-text {
+            flex-grow: 1;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            user-select: text;
+        }
+        .copy-btn {
+            cursor: pointer;
+            background: none;
+            border: none;
+            font-size: 18px;
+            color: #007bff;
+            position: relative;
+            user-select: none;
+        }
+        .copy-btn:hover {
+            color: #0056b3;
+        }
+        .copy-btn::before {
+            content: '📝';
+            font-size: 18px;
+            margin-right: 10px;
+        }
+        .copy-btn::after {
+            content: 'Kopiuj';
+            position: absolute;
+            top: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #333;
+            color: white;
+            padding: 5px;
+            border-radius: 5px;
+            font-size: 12px;
+            visibility: hidden;
+            opacity: 0;
+            transition: opacity 0.3s;
+            z-index: 10;
+        }
+        .copy-btn:hover::after {
+            visibility: visible;
+            opacity: 1;
         }
         button {
             background-color: #007bff;
@@ -103,7 +142,19 @@
                 let password = generatePassword();
                 let passwordElement = document.createElement('div');
                 passwordElement.classList.add('password-item');
-                passwordElement.textContent = password;
+                
+                let passwordText = document.createElement('span');
+                passwordText.textContent = password;
+                passwordText.classList.add('password-text');
+                
+                let copyButton = document.createElement('span');
+                copyButton.classList.add('copy-btn');
+                copyButton.onclick = function() {
+                    copyToClipboard(passwordText);
+                };
+                
+                passwordElement.appendChild(passwordText);
+                passwordElement.appendChild(copyButton);
                 passwordsContainer.appendChild(passwordElement);
             }
         }
@@ -140,6 +191,16 @@
 
         function shuffleString(string) {
             return string.split('').sort(() => 0.5 - Math.random()).join('');
+        }
+
+        function copyToClipboard(passwordElement) {
+            const password = passwordElement.textContent;
+            const tempInput = document.createElement('input');
+            document.body.appendChild(tempInput);
+            tempInput.value = password;
+            tempInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempInput);
         }
     </script>
 </body>
