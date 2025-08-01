@@ -1,215 +1,692 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-6M3T75EDZ5"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Generator Haseł</title>
 
-  gtag('config', 'G-6M3T75EDZ5');
-</script>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Generator Haseł</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            margin: 50px;
-            background-color: #e3e3e3;
-        }
-        .container {
-            max-width: 400px;
-            margin: auto;
-            padding: 20px;
-            border: 1px solid #ccc;
-            border-radius: 10px;
-            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            background-color: #f9f9f9;
-        }
-        .input-group {
-            display: flex;
-            justify-content: space-between;
-            width: 100%;
-            align-items: center;
-        }
-        .input-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            width: 48%;
-        }
-        input, button {
-            margin: 10px 0;
-            padding: 10px;
-            width: calc(100% - 20px);
-            text-align: center;
-        }
-        input[type="number"] {
-            width: 60px;
-            text-align: center;
-            margin-top: 5px;
-        }
-        .password-list {
-            margin-top: 20px;
-            text-align: left;
-            width: 100%;
-        }
-        .password-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 5px;
-            border-bottom: 1px solid #ccc;
-            white-space: nowrap;
-        }
-        .password-text {
-            flex-grow: 1;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            user-select: text;
-        }
-        .copy-btn {
-            cursor: pointer;
-            background: none;
-            border: none;
-            font-size: 18px;
-            color: #007bff;
-            position: relative;
-            user-select: none;
-        }
-        .copy-btn:hover {
-            color: #0056b3;
-        }
-        .copy-btn::before {
-            content: '📝';
-            font-size: 18px;
-            margin-right: 10px;
-        }
-        .copy-btn::after {
-            content: 'Kopiuj';
-            position: absolute;
-            top: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: #333;
-            color: white;
-            padding: 5px;
-            border-radius: 5px;
-            font-size: 12px;
-            visibility: hidden;
-            opacity: 0;
-            transition: opacity 0.3s;
-            z-index: 10;
-        }
-        .copy-btn:hover::after {
-            visibility: visible;
-            opacity: 1;
-        }
-        button {
-            background-color: #007bff;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-        }
-        button:hover {
-            background-color: #0056b3;
-        }
-    </style>
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-6M3T75EDZ5"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-6M3T75EDZ5');
+  </script>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin: 50px;
+      background-color: #e3e3e3;
+      padding-top: 70px;
+    }
+    .container {
+      max-width: 400px;
+      margin: auto;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      box-shadow: 2px 2px 10px rgba(0,0,0,0.1);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background-color: #f9f9f9;
+    }
+    .input-group {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      align-items: center;
+    }
+    .input-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 48%;
+    }
+    input, button {
+      margin: 10px 0;
+      padding: 10px;
+      width: calc(100% - 20px);
+      text-align: center;
+    }
+    input[type="number"] {
+      width: 60px;
+      text-align: center;
+      margin-top: 5px;
+    }
+    .password-list {
+      margin-top: 20px;
+      text-align: left;
+      width: 100%;
+    }
+    .password-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 5px;
+      border-bottom: 1px solid #ccc;
+      white-space: nowrap;
+    }
+    .password-text {
+      flex-grow: 1;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      user-select: text;
+    }
+    .copy-btn {
+      cursor: pointer;
+      background: none;
+      border: none;
+      font-size: 18px;
+      color: #007bff;
+      position: relative;
+      user-select: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .copy-btn:hover {
+      color: #0056b3;
+    }
+    .copy-btn::before {
+      content: '📝';
+      font-size: 18px;
+      margin-right: 6px;
+    }
+    .copy-btn::after {
+      content: 'Kopiuj';
+      position: absolute;
+      top: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #333;
+      color: white;
+      padding: 5px;
+      border-radius: 5px;
+      font-size: 12px;
+      visibility: hidden;
+      opacity: 0;
+      transition: opacity 0.3s;
+      z-index: 10;
+    }
+    .copy-btn:hover::after {
+      visibility: visible;
+      opacity: 1;
+    }
+    button {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      gap: 2px;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    /* PANEL - moje hasła */
+    #password-manager-tab {
+      position: fixed;
+      left: 0;
+      top: 6%;
+      transform: translateY(-50%);
+      background: #1f2937;
+      color: white;
+      padding: 10px 12px;
+      border-radius: 0 8px 8px 0;
+      cursor: pointer;
+      font-family: system-ui,-apple-system,BlinkMacSystemFont,sans-serif;
+      z-index: 1000;
+    }
+    #password-manager-panel {
+      position: fixed;
+      left: -320px;
+      top: 0;
+      width: 320px;
+      height: 100%;
+      background: #f9f9f9;
+      box-shadow: 3px 0 12px rgba(0,0,0,0.15);
+      transition: left 0.25s ease;
+      font-family: system-ui,-apple-system,BlinkMacSystemFont,sans-serif;
+      display: flex;
+      flex-direction: column;
+      z-index: 999;
+    }
+    #password-manager-panel.open { left: 0; }
+    #pm-header {
+      padding: 16px;
+      background: #2563eb;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    #pm-list { flex:1; overflow:auto; padding: 12px; }
+    .pm-entry {
+      background: white;
+      padding: 10px;
+      border-radius: 6px;
+      margin-bottom: 10px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+      position: relative;
+      cursor: pointer;
+      transition: background .2s;
+    }
+    .pm-entry .title { font-weight: 600; }
+    .pm-controls {
+      margin-top:4px;
+      display:flex;
+      gap:2px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .pm-controls button {
+      padding:4px 8px;
+      border:none;
+      border-radius:4px;
+      cursor:pointer;
+      font-size:12px;
+      background: #f1f5f9;
+      color: #333;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      gap: 2px;
+      min-width: 0;
+      margin: 0;
+    }
+    .pm-controls button:hover {
+      background: #dde7fb;
+    }
+    .toggle-show {
+      background: #e2e8f0;
+      border-radius: 4px;
+      padding: 4px 8px;
+      font-size: 11px;
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+    .toggle-show:hover {
+      background: #cfd8ef;
+    }
+    .small { font-size:12px; color:#555; }
+    #add-form {
+      padding: 12px;
+      border-top: 1px solid #e5e7eb;
+      background: #fff;
+    }
+    #add-form input {
+      width: 100%;
+      padding: 8px;
+      margin: 4px 0;
+      box-sizing:border-box;
+      border:1px solid #d1d5db;
+      border-radius:4px;
+    }
+    #master-prompt {
+      padding: 12px;
+      border-bottom:1px solid #e5e7eb;
+      background: #f1f5f9;
+    }
+    .hidden-text { letter-spacing: 0.3em; }
+
+    .pm-entry .pm-controls { display: none; }
+    .pm-entry.expanded { background: #eef5ff; }
+    .pm-entry.expanded .pm-controls { display: flex; }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <h2>Generator Haseł</h2>
-        <div class="input-group">
-            <div class="input-item">
-                <label for="length">Długość hasła:</label>
-                <input type="number" id="length" min="8" max="50" value="12">
-            </div>
-            <div class="input-item">
-                <label for="count">Liczba haseł:</label>
-                <input type="number" id="count" min="1" max="50" value="10">
-            </div>
-        </div>
-        <button onclick="generatePasswords()">Generuj</button>
-        <div id="passwords" class="password-list"></div>
+  <div id="password-manager-tab">Moje hasła</div>
+  <div id="password-manager-panel" aria-label="Menedżer haseł">
+    <div id="pm-header">
+      <div>Moje hasła</div>
+      <div>
+        <button id="lock-toggle" style="background:rgba(255,255,255,0.2);color:white;border:none;border-radius:4px;cursor:pointer;">Zablokuj</button>
+      </div>
     </div>
+    <div id="master-prompt">
+      <div style="margin-bottom:8px;">
+        <label>Hasło główne (nie przechowujemy):</label>
+        <input type="password" id="master-password" placeholder="Wpisz hasło główne" />
+      </div>
+      <div>
+        <button id="unlock-btn" style="padding:6px 12px; cursor:pointer;">Odblokuj / Załaduj</button>
+        <span class="small" id="status" style="margin-left:8px;">zablokowane</span>
+      </div>
+    </div>
+    <div id="pm-list" aria-live="polite"></div>
+    <div id="add-form">
+      <div style="font-weight:600; margin-bottom:6px;">Dodaj nowy wpis</div>
+      <div id="add-locked-hint" class="small" style="margin-bottom:6px;">Najpierw odblokuj hasłem głównym</div>
+      <input type="text" id="new-title" placeholder="Nazwa / strona" />
+      <input type="text" id="new-login" placeholder="Login / użytkownik" />
+      <input type="text" id="new-password" placeholder="Hasło" />
+      <div style="display:flex; gap:6px; margin-top:4px;">
+        <button id="add-btn" style="flex:1; padding:8px; cursor:pointer;">Dodaj</button>
+        <button id="generate-btn" style="flex:1; padding:8px; cursor:pointer;">Generuj hasło</button>
+      </div>
+    </div>
+  </div>
 
-    <script>
-        function generatePasswords() {
-            let passwordsContainer = document.getElementById('passwords');
-            passwordsContainer.innerHTML = '';
-            let count = document.getElementById('count').value;
-            for (let i = 0; i < count; i++) {
-                let password = generatePassword();
-                let passwordElement = document.createElement('div');
-                passwordElement.classList.add('password-item');
-                
-                let passwordText = document.createElement('span');
-                passwordText.textContent = password;
-                passwordText.classList.add('password-text');
-                
-                let copyButton = document.createElement('span');
-                copyButton.classList.add('copy-btn');
-                copyButton.onclick = function() {
-                    copyToClipboard(passwordText);
-                };
-                
-                passwordElement.appendChild(passwordText);
-                passwordElement.appendChild(copyButton);
-                passwordsContainer.appendChild(passwordElement);
+  <div class="container">
+    <h2>Generator Haseł</h2>
+    <div class="input-group">
+      <div class="input-item">
+        <label for="length">Długość hasła:</label>
+        <input type="number" id="length" min="8" max="50" value="12">
+      </div>
+      <div class="input-item">
+        <label for="count">Liczba haseł:</label>
+        <input type="number" id="count" min="1" max="50" value="10">
+      </div>
+    </div>
+    <button onclick="generatePasswords()">Generuj</button>
+    <div id="passwords" class="password-list"></div>
+  </div>
+
+  <script>
+    function generatePasswords() {
+      let passwordsContainer = document.getElementById('passwords');
+      passwordsContainer.innerHTML = '';
+      let count = parseInt(document.getElementById('count').value) || 1;
+      for (let i = 0; i < count; i++) {
+        let password = generatePassword();
+        let passwordElement = document.createElement('div');
+        passwordElement.classList.add('password-item');
+
+        let passwordText = document.createElement('span');
+        passwordText.textContent = password;
+        passwordText.classList.add('password-text');
+
+        let copyButton = document.createElement('span');
+        copyButton.classList.add('copy-btn');
+        copyButton.onclick = function() {
+          copyToClipboard(passwordText);
+        };
+
+        passwordElement.appendChild(passwordText);
+        passwordElement.appendChild(copyButton);
+        passwordsContainer.appendChild(passwordElement);
+      }
+    }
+
+    function generatePassword() {
+      let length = parseInt(document.getElementById('length').value);
+      if (isNaN(length) || length < 8) length = 8;
+
+      const lowercaseChars = 'abcdefghijklmnopqrstuvwxyz';
+      const uppercaseChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+      const numberChars = '0123456789';
+      const symbolChars = '@$!%*?&';
+
+      let password = '';
+      password += getRandomChars(2, lowercaseChars);
+      password += getRandomChars(2, uppercaseChars);
+      password += getRandomChars(2, numberChars);
+      password += getRandomChars(2, symbolChars);
+
+      let allChars = lowercaseChars + uppercaseChars + numberChars + symbolChars;
+      let remainingLength = length - password.length;
+      if (remainingLength > 0) {
+        password += getRandomChars(remainingLength, allChars);
+      }
+
+      return shuffleString(password);
+    }
+
+    function getRandomChars(count, chars) {
+      let result = '';
+      for (let i = 0; i < count; i++) {
+        result += chars[Math.floor(Math.random() * chars.length)];
+      }
+      return result;
+    }
+
+    function shuffleString(string) {
+      return string.split('').sort(() => 0.5 - Math.random()).join('');
+    }
+
+    function copyToClipboard(passwordElement) {
+      const password = passwordElement.textContent;
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(password).then(()=> {
+          alert('Skopiowano hasło');
+        }, ()=> {
+          fallbackCopy(password);
+        });
+      } else {
+        fallbackCopy(password);
+      }
+    }
+
+    function fallbackCopy(text) {
+      const tempInput = document.createElement('input');
+      document.body.appendChild(tempInput);
+      tempInput.value = text;
+      tempInput.select();
+      document.execCommand('copy');
+      document.body.removeChild(tempInput);
+      alert('Skopiowano hasło');
+    }
+  </script>
+
+  <script>
+    (async function(){
+      const b64 = {
+        encode: (u) => btoa(String.fromCharCode(...new Uint8Array(u))),
+        decode: (s) => Uint8Array.from(atob(s), c => c.charCodeAt(0))
+      };
+      const STORAGE_KEY = 'pm_encrypted_entries';
+      const SALT_KEY = 'pm_salt';
+      let cryptoKey = null;
+      let unlocked = false;
+
+      function updateAddFormState(enabled) {
+        ['new-title','new-login','new-password','add-btn','generate-btn'].forEach(id => {
+          const el = document.getElementById(id);
+          if (!el) return;
+          el.disabled = !enabled;
+          el.style.opacity = enabled ? '' : '0.5';
+          el.style.cursor = enabled ? '' : 'not-allowed';
+        });
+        const hint = document.getElementById('add-locked-hint');
+        if (hint) hint.style.display = enabled ? 'none' : 'block';
+      }
+
+      function getRandomChars(count, chars) {
+        let result = '';
+        for (let i = 0; i < count; i++) {
+          result += chars[Math.floor(Math.random() * chars.length)];
+        }
+        return result;
+      }
+      function shuffleString(str) {
+        return str.split('').sort(() => 0.5 - Math.random()).join('');
+      }
+      function generateEntryPassword(len = 16) {
+        if (isNaN(len) || len < 8) len = 8;
+        const lowercase = 'abcdefghijklmnopqrstuvwxyz';
+        const uppercase = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        const numberChars = '0123456789';
+        const symbolChars = '@$!%*?&';
+
+        let password = '';
+        password += getRandomChars(2, lowercase);
+        password += getRandomChars(2, uppercase);
+        password += getRandomChars(2, numberChars);
+        password += getRandomChars(2, symbolChars);
+
+        const all = lowercase + uppercase + numberChars + symbolChars;
+        const remaining = len - password.length;
+        if (remaining > 0) {
+          password += getRandomChars(remaining, all);
+        }
+        return shuffleString(password);
+      }
+
+      // inicjalnie zablokowane
+      updateAddFormState(false);
+
+      const tab = document.getElementById('password-manager-tab');
+      const panel = document.getElementById('password-manager-panel');
+      tab.addEventListener('click',()=> panel.classList.toggle('open'));
+      document.getElementById('lock-toggle').addEventListener('click', lockAll);
+
+      function setStatus(txt, color){
+        const s = document.getElementById('status');
+        s.textContent = txt;
+        if(color) s.style.color = color;
+        else s.style.color='';
+      }
+
+      async function deriveKey(masterPassword, salt) {
+        const encoder = new TextEncoder();
+        const keyMaterial = await window.crypto.subtle.importKey(
+          'raw', encoder.encode(masterPassword), {name:'PBKDF2'}, false, ['deriveKey']
+        );
+        return window.crypto.subtle.deriveKey(
+          {
+            name: 'PBKDF2',
+            salt: salt,
+            iterations: 200000,
+            hash: 'SHA-256'
+          },
+          keyMaterial,
+          { name: 'AES-GCM', length: 256 },
+          false,
+          ['encrypt','decrypt']
+        );
+      }
+
+      function getOrCreateSalt() {
+        let s = localStorage.getItem(SALT_KEY);
+        if (s) return b64.decode(s);
+        const newSalt = window.crypto.getRandomValues(new Uint8Array(16));
+        localStorage.setItem(SALT_KEY, b64.encode(newSalt));
+        return newSalt;
+      }
+
+      async function encryptEntries(entriesObj) {
+        if(!cryptoKey) throw new Error('Brak klucza');
+        const iv = window.crypto.getRandomValues(new Uint8Array(12));
+        const plain = new TextEncoder().encode(JSON.stringify(entriesObj));
+        const cipher = await window.crypto.subtle.encrypt(
+          { name: 'AES-GCM', iv: iv },
+          cryptoKey,
+          plain
+        );
+        return JSON.stringify({
+          iv: b64.encode(iv),
+          data: b64.encode(cipher)
+        });
+      }
+
+      async function decryptEntries(blobStr) {
+        if(!cryptoKey) throw new Error('Brak klucza');
+        try {
+          const parsed = JSON.parse(blobStr);
+          const iv = b64.decode(parsed.iv);
+          const data = b64.decode(parsed.data);
+          const plain = await window.crypto.subtle.decrypt(
+            { name: 'AES-GCM', iv: iv },
+            cryptoKey,
+            data
+          );
+          const text = new TextDecoder().decode(plain);
+          return JSON.parse(text);
+        } catch (e) {
+          throw new Error('Nie udało się odszyfrować (możliwe złe hasło główne)');
+        }
+      }
+
+      function saveRaw(encrypted) {
+        localStorage.setItem(STORAGE_KEY, encrypted);
+      }
+
+      function loadRaw() {
+        return localStorage.getItem(STORAGE_KEY);
+      }
+
+      function sanitize(str) {
+        return String(str).replace(/[<>&]/g, c => ({'<':'&lt;','>':'&gt;','&':'&amp;'})[c]);
+      }
+
+      async function persist(entries) {
+        try {
+          const encrypted = await encryptEntries(entries);
+          saveRaw(encrypted);
+        } catch (e) {
+          console.error(e);
+          alert('Błąd przy zapisie: ' + e.message);
+        }
+      }
+
+      function renderEntries(entries) {
+        const container = document.getElementById('pm-list');
+        container.innerHTML = '';
+        if (entries.length === 0) {
+          container.innerHTML = '<div class="small">Brak zapisanych haseł. Dodaj nowy poniżej.</div>';
+          return;
+        }
+        entries.forEach((e, idx) => {
+          const div = document.createElement('div');
+          div.className = 'pm-entry';
+          div.dataset.index = idx;
+          div.innerHTML = `
+            <div class="title">${sanitize(e.title)}</div>
+            <div class="small">Login: <span class="login">${sanitize(e.login)}</span></div>
+            <div class="small">Hasło: 
+              <span class="password-display hidden-text">••••••••</span>
+              <button class="toggle-show" style="margin-left:6px;font-size:11px;">Pokaż</button>
+            </div>
+            <div class="pm-controls">
+              <button class="edit-btn">Edytuj</button>
+              <button class="delete-btn">Usuń</button>
+              <button class="copy-login">Kopiuj login</button>
+              <button class="copy-pass">Kopiuj hasło</button>
+            </div>
+          `;
+
+          div.addEventListener('click', () => {
+            div.classList.toggle('expanded');
+          });
+
+          const toggleBtn = div.querySelector('.toggle-show');
+          toggleBtn.addEventListener('click', async (ev) => {
+            ev.stopPropagation();
+            const pwdSpan = div.querySelector('.password-display');
+            if (pwdSpan.dataset.visible === '1') {
+              pwdSpan.textContent = '••••••••';
+              pwdSpan.classList.add('hidden-text');
+              pwdSpan.dataset.visible = '0';
+              ev.target.textContent = 'Pokaż';
+            } else {
+              pwdSpan.textContent = e.password;
+              pwdSpan.classList.remove('hidden-text');
+              pwdSpan.dataset.visible = '1';
+              ev.target.textContent = 'Ukryj';
             }
-        }
+          });
 
-        function generatePassword() {
-            let length = document.getElementById('length').value;
-            if (length < 8) length = 8;
-            
-            const lowercaseChars = 'abcdefghijklmnopqrstuvwxyz';
-            const uppercaseChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-            const numberChars = '0123456789';
-            const symbolChars = '@$!%*?&';
-            
-            let password = '';
-            password += getRandomChars(2, lowercaseChars);
-            password += getRandomChars(2, uppercaseChars);
-            password += getRandomChars(2, numberChars);
-            password += getRandomChars(2, symbolChars);
-            
-            let allChars = lowercaseChars + uppercaseChars + numberChars + symbolChars;
-            let remainingLength = length - password.length;
-            password += getRandomChars(remainingLength, allChars);
-            
-            return shuffleString(password);
-        }
+          const deleteBtn = div.querySelector('.delete-btn');
+          deleteBtn.addEventListener('click', async (ev) => {
+            ev.stopPropagation();
+            if (!confirm('Usunąć ten wpis?')) return;
+            entries.splice(idx, 1);
+            await persist(entries);
+            renderEntries(entries);
+          });
 
-        function getRandomChars(count, chars) {
-            let result = '';
-            for (let i = 0; i < count; i++) {
-                result += chars[Math.floor(Math.random() * chars.length)];
-            }
-            return result;
-        }
+          const editBtn = div.querySelector('.edit-btn');
+          editBtn.addEventListener('click', (ev) => {
+            ev.stopPropagation();
+            const newTitle = prompt('Nazwa:', e.title);
+            if (newTitle === null) return;
+            const newLogin = prompt('Login:', e.login);
+            if (newLogin === null) return;
+            const newPass = prompt('Hasło:', e.password);
+            if (newPass === null) return;
+            e.title = newTitle;
+            e.login = newLogin;
+            e.password = newPass;
+            persist(entries).then(() => renderEntries(entries));
+          });
 
-        function shuffleString(string) {
-            return string.split('').sort(() => 0.5 - Math.random()).join('');
-        }
+          const copyLoginBtn = div.querySelector('.copy-login');
+          copyLoginBtn.addEventListener('click', (ev) => {
+            ev.stopPropagation();
+            navigator.clipboard.writeText(e.login);
+            alert('Skopiowano login');
+          });
 
-        function copyToClipboard(passwordElement) {
-            const password = passwordElement.textContent;
-            const tempInput = document.createElement('input');
-            document.body.appendChild(tempInput);
-            tempInput.value = password;
-            tempInput.select();
-            document.execCommand('copy');
-            document.body.removeChild(tempInput);
+          const copyPassBtn = div.querySelector('.copy-pass');
+          copyPassBtn.addEventListener('click', (ev) => {
+            ev.stopPropagation();
+            navigator.clipboard.writeText(e.password);
+            alert('Skopiowano hasło');
+          });
+
+          container.appendChild(div);
+        });
+      }
+
+      async function unlock() {
+        const mpw = document.getElementById('master-password').value;
+        if(!mpw){ alert('Podaj hasło główne'); return; }
+        const salt = getOrCreateSalt();
+        try {
+          cryptoKey = await deriveKey(mpw, salt);
+          const raw = loadRaw();
+          let entries = [];
+          if(raw){
+            entries = await decryptEntries(raw);
+          }
+          unlocked = true;
+          setStatus('odblokowane', 'lightgreen');
+          updateAddFormState(true);
+          renderEntries(entries);
+          document.getElementById('master-prompt').style.display = 'none';
+        } catch (e) {
+          console.error(e);
+          setStatus('błąd odszyfrowania', 'crimson');
+          alert('Nie udało się odblokować: ' + e.message);
         }
-    </script>
+      }
+
+      function lockAll(){
+        cryptoKey = null;
+        unlocked = false;
+        document.getElementById('pm-list').innerHTML = '';
+        setStatus('zablokowane','');
+        updateAddFormState(false);
+        document.getElementById('master-prompt').style.display = 'block';
+        document.getElementById('master-password').value = '';
+      }
+
+      document.getElementById('unlock-btn').addEventListener('click', unlock);
+      document.getElementById('generate-btn').addEventListener('click', (e) => {
+        e.preventDefault();
+        if (!unlocked) {
+          alert('Najpierw odblokuj hasłem głównym');
+          return;
+        }
+        const pwd = generateEntryPassword(16);
+        document.getElementById('new-password').value = pwd;
+      });
+      document.getElementById('add-btn').addEventListener('click', async ()=>{
+        if(!unlocked){ alert('Najpierw odblokuj hasłem głównym'); return; }
+        const title = document.getElementById('new-title').value.trim();
+        const login = document.getElementById('new-login').value.trim();
+        const password = document.getElementById('new-password').value.trim();
+        if(!title || !password){ alert('Nazwa i hasło są wymagane'); return; }
+        let entries = [];
+        const raw = loadRaw();
+        if(raw){
+          try { entries = await decryptEntries(raw); } catch {}
+        }
+        entries.push({ title, login, password, created: Date.now() });
+        await persist(entries);
+        document.getElementById('new-title').value='';
+        document.getElementById('new-login').value='';
+        document.getElementById('new-password').value='';
+        renderEntries(entries);
+      });
+    })();
+  </script>
 </body>
 </html>
