@@ -365,7 +365,6 @@
       const password = passwordElement.textContent;
       if (navigator.clipboard && navigator.clipboard.writeText) {
         navigator.clipboard.writeText(password).then(()=> {
-          alert('Skopiowano hasło');
         }, ()=> {
           fallbackCopy(password);
         });
@@ -689,4 +688,5 @@
   </script>
 </body>
 </html>
+
 
